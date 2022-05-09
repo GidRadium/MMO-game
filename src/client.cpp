@@ -39,7 +39,8 @@ public:
 
             window.clear();
             //window.draw(main_scene);
-            main_scene.draw(window, sf::RenderStates::Default);
+            //main_scene.draw(window, sf::RenderStates::Default);
+            window.draw(main_scene);
             window.display();
         }
     }

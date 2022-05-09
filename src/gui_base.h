@@ -38,7 +38,7 @@ namespace gr
             // Should set/change children's local bounds
             virtual void onResize() = 0;
             // Base sf::Drawable function
-            virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
+            
 
         protected:
             std::vector<Object*> linked_objects_;
@@ -46,6 +46,8 @@ namespace gr
             sf::IntRect local_bounds_ = sf::IntRect(0, 0, 0, 0);
             sf::IntRect global_bounds_ = sf::IntRect(0, 0, 0, 0);
             //sf::View view_;
+
+            virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
         };
 
 
@@ -57,6 +59,7 @@ namespace gr
 
             virtual void onResize() override = 0;
 
+        protected:
 		    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
         };
 
