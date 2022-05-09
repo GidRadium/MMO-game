@@ -7,14 +7,23 @@ namespace gr
     namespace gui 
     {
 
-        class DrawingField : public Object {
+        class Chat : public Object 
+        {
         public:
-            //int diameter = 3;
-            sf::Texture picture;
             void onResize() override;
-            void render() override;
-            
+            void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+        };
 
+        class MainScene : Scene
+        {
+            //MainScene();
+        public:
+            void init(sf::RenderTarget& target);
+            void handleEvent(sf::Event event, sf::RenderTarget& target) override;
+            void onResize() override;
+            void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+            Chat chat_;
         };
 
     }
