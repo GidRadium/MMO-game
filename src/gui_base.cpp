@@ -89,23 +89,6 @@ namespace gr
                 (float)global_bounds_.width / wx, 
                 (float)global_bounds_.height / wy));
             target.setView(v);
-            /*
-            std::cout 
-                << (float)local_bounds_.left << " "
-                << (float)local_bounds_.top << " "
-                << (float)local_bounds_.width << " "
-                << (float)local_bounds_.height << "\n";
-            std::cout 
-                << (float)global_bounds_.left << " "
-                << (float)global_bounds_.top << " "
-                << (float)global_bounds_.width << " "
-                << (float)global_bounds_.height << "\n";
-            std::cout 
-                << (float)global_bounds_.left / wx << " "
-                << (float)global_bounds_.top / wy << " "
-                << (float)global_bounds_.width / wx << " "
-                << (float)global_bounds_.height / wy << "\n";
-            */
         }
 
 
