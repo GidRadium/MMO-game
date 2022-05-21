@@ -34,16 +34,9 @@ namespace gr
             linkObject(&game_world_);
             setSize(sf::Vector2i(target.getSize().x, target.getSize().y));
             
-            if (game_world_.background_texture.loadFromFile("res/background.png"))
-            {
-                game_world_.background_texture.setRepeated(true);
-                //game_world_.background_texture.
-                //std::cout << game_world_.background_texture.getSize().y << "\n";
-            }
-            else
-            {
-                //std::cout << "error: loadFromFile(res/background.png)" << "\n";
-            }
+            game_world_.background_texture.loadFromFile("res/background.png");
+            game_world_.background_texture.setRepeated(true);
+            game_world_.skin.loadFromFile("res/RimuruBestSkin.jpg");
 
         }
 
@@ -92,7 +85,7 @@ namespace gr
         {
             target.clear(sf::Color::Black);
             target.draw(game_world_);
-            target.draw(chat_);
+            //target.draw(chat_);
         }
 
         void Camera::replace(sf::Vector2f new_position)
@@ -145,12 +138,31 @@ namespace gr
             //if(self_index)
             */
 
+            sf::Vector2f pos(0, 0);
+            for(size_t i=0; i<game_data_.players.size(); i++)
+            {
+                if(player_id_ == game_data_.players[i].id && game_data_.players[i].cells.size()){
+                    float smas = 0, sx=0, sy=0;
+                    for(auto c : game_data_.players[i].cells)
+                    {
+                        smas += c.mass;
+                        sx += c.x * c.mass;
+                        sy += c.y * c.mass;
+                    }
+                    pos = sf::Vector2f(sf::Vector2f(sx/smas, sy/smas));
+                }
+            }
+            cam_.replace(pos);
+
+            /*
             if (game_data_.players.size() && game_data_.players[0].cells.size())
                 cam_.replace(sf::Vector2f(
                     game_data_.players[0].cells[0].x, 
                     game_data_.players[0].cells[0].y));
             else
                 cam_.replace(sf::Vector2f(0, 0));
+            */
+            
             
 
             //cam_.updateView(target, global_bounds_);
@@ -186,17 +198,21 @@ namespace gr
 
             
             sf::CircleShape c;
+            //c.setFillColor(sf::Color::Green);
+            c.setTexture(&skin);
+            c.setOutlineThickness(1);
+            c.setOutlineColor(sf::Color::Black);
+
             for(int i = 0; i < game_data_.players.size(); i++)
             {
-                c.setFillColor(sf::Color::Green);
+                
                 for(int j=0; j < game_data_.players[i].cells.size(); j++)
                 {
                     float radius = sqrt(game_data_.players[i].cells[j].mass);
                     c.setOrigin(radius, radius);
                     c.setPosition(sf::Vector2f(game_data_.players[i].cells[j].x, game_data_.players[i].cells[j].y));
                     c.setRadius(radius);
-                    c.setOutlineThickness(1);
-                    c.setOutlineColor(sf::Color::Black);
+                    
                     target.draw(c);
                 }
                 

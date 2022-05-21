@@ -23,17 +23,46 @@ endif()
 # ---------------------
 
 
+# CLIENT
+add_executable(
+    client 
+    src/client/client.cpp 
+    src/client/gui_base.h 
+    src/client/gui_base.cpp 
+    src/client/gui_mmo.h 
+    src/client/gui_mmo.cpp 
+    src/common/game_data.h 
+    src/common/game_data.cpp 
+    src/common/net_common.h 
+    src/common/olcPGEX_Network.h 
+    
+)
 
-add_executable(client src/client.cpp src/gui_base.h src/gui_base.cpp src/gui_mmo.h src/gui_mmo.cpp src/game_data.h src/game_data.cpp)
+target_include_directories(client PUBLIC "${ASIO_PATH}")
+
 target_include_directories(client PUBLIC "${SFML_PATH}/include")
 target_link_directories(client PUBLIC "${SFML_PATH}/lib")
 target_link_libraries(client opengl32 winmm gdi32 sfml-system-d sfml-window-d sfml-graphics-d)
 
 
-add_executable(AsioTest src/asio-test.cpp)
-target_include_directories(AsioTest PUBLIC "${ASIO_PATH}")
+# SERVER
+add_executable(
+    server 
+    src/server/server.cpp 
+    src/common/game_data.h 
+    src/common/game_data.cpp 
+    src/common/net_common.h 
+    src/common/olcPGEX_Network.h 
+)
+
+target_include_directories(server PUBLIC "${ASIO_PATH}")
+target_include_directories(server PUBLIC "${SFML_PATH}/include")
+
+target_link_directories(server PUBLIC "${SFML_PATH}/lib")
+target_link_libraries(server sfml-system-d)
+
 if(UNIX)
     set(THREADS_PREFER_PTHREAD_FLAG ON)
     find_package(Threads REQUIRED)
-    target_link_libraries(AsioTest PRIVATE Threads::Threads)
+    target_link_libraries(server PRIVATE Threads::Threads)
 endif(UNIX)

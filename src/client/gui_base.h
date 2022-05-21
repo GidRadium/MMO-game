@@ -25,27 +25,21 @@ namespace gr
             void setSize(sf::Vector2i size);
             // If smth is changed updates local and global position, calls updateGlobalBounds()
             void setLocalPosition(sf::Vector2i local_position);
-
+            // Getters
             sf::Vector2i getSize() const;
             sf::Vector2i getLocalPosition() const;
             sf::Vector2i getGlobalPosition() const;
-
             // Change target's view to object's
             void setObjectView(sf::RenderTarget& target) const;
 
-            //virtual void render() = 0;
-
             // Should set/change children's local bounds
             virtual void onResize() = 0;
-            // Base sf::Drawable function
-            
 
         protected:
             std::vector<Object*> linked_objects_;
             bool need_to_render_ = 1;
             sf::IntRect local_bounds_ = sf::IntRect(0, 0, 0, 0);
             sf::IntRect global_bounds_ = sf::IntRect(0, 0, 0, 0);
-            //sf::View view_;
 
             virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
         };

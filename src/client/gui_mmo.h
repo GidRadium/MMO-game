@@ -1,7 +1,7 @@
 #pragma once
 
 #include "gui_base.h"
-#include "game_data.h"
+#include "../common/game_data.h"
 
 namespace gr 
 {
@@ -47,6 +47,7 @@ namespace gr
             uint32_t player_id_;
             data::Game game_data_;
             sf::Texture background_texture;
+            sf::Texture skin;
         };
 
         class MainScene : public Scene
@@ -59,6 +60,7 @@ namespace gr
 
             Chat chat_;
             GameWorld game_world_;
+            
 
         protected:
             void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
